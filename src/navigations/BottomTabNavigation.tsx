@@ -2,7 +2,6 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import Search from "../screens/Search";
-import Favorite from "../screens/Favorite";
 import HomeStackNavigation from "./HomeStackNavigation";
 import FavoStackNavigator from "./FavoStackNavigator";
 
