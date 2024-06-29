@@ -23,7 +23,7 @@ const MovieDetail = ({ route }: { route: RouteProp<any> }) => {
     id: 0,
   });
   const [movieRecommendation, setMovieRecommendation] = useState<Movie[]>([]);
-  const [isFavorite, setIsFavorite] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const getMovieDetail = (): void => {
     const url = `https://api.themoviedb.org/3/movie/${route.params?.id}`;
@@ -140,6 +140,12 @@ const MovieDetail = ({ route }: { route: RouteProp<any> }) => {
               <Text style={styles.rating}>{movieDetail.vote_average.toFixed(1)}</Text>
             </View>
           </LinearGradient>
+          <TouchableOpacity
+            style={styles.favoriteIcon}
+            onPress={() => isFavorite ? removeFavorite(movieDetail.id) : addFavorite(movieDetail)}
+          >
+            <FontAwesome name={isFavorite ? "heart" : "heart-o"} size={24} color="red" />
+          </TouchableOpacity>
         </ImageBackground>
       ) : (
         <View style={styles.headerContainer}>
@@ -166,14 +172,6 @@ const MovieDetail = ({ route }: { route: RouteProp<any> }) => {
             <Text style={styles.detailValue}>{movieDetail.vote_count}</Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={styles.favoriteButton}
-          onPress={() => isFavorite ? removeFavorite(movieDetail.id) : addFavorite(movieDetail)}
-        >
-          <Text style={styles.favoriteButtonText}>
-            {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-          </Text> 
-        </TouchableOpacity>
         <Text style={styles.recommendationTitle}>Recommendations</Text>
         <FlatList
           style={styles.recommendationList}
@@ -253,16 +251,13 @@ const styles = StyleSheet.create({
   headerContainer: {
     padding: 10,
   },
-  favoriteButton: {
-    backgroundColor: 'blue',
+  favoriteIcon: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 50,
     padding: 10,
-    borderRadius: 5,
-    marginVertical: 10,
-  },
-  favoriteButtonText: {
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: 'bold',
   }
 });
 
