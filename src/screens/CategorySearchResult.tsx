@@ -1,11 +1,23 @@
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, RouteProp } from "@react-navigation/native";
 import MovieItem from "../components/movies/MovieItem";
 import { API_ACCESS_TOKEN } from "@env";
+import { Movie } from "../types/app";
+
+interface Genre {
+  id: number;
+  name: string;
+}
+
+type RootStackParamList = {
+  CategorySearchResult: { genre: Genre };
+};
+
+type CategorySearchResultRouteProp = RouteProp<RootStackParamList, "CategorySearchResult">;
 
 const CategorySearchResult = () => {
-  const route = useRoute();
+  const route = useRoute<CategorySearchResultRouteProp>();
   const { genre } = route.params;
 
   const [moviesByGenre, setMoviesByGenre] = useState<Movie[]>([]);
@@ -15,7 +27,7 @@ const CategorySearchResult = () => {
     getMoviesByGenre();
   }, [genre.id]);
 
-  const getMoviesByGenre = (): void => {
+  const getMoviesByGenre = () => {
     const url = `https://api.themoviedb.org/3/discover/movie?page=1&with_genres=${genre.id}`;
     const options = {
       method: "GET",
@@ -74,9 +86,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-
   header: {
-    marginLeft: 20,
+    marginLeft: 6,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -101,19 +112,19 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: "absolute",
-    right: 15, // Position the icon on the right inside the input container
+    right: 15,
   },
   searchMovieResultContainer: {
     flex: 1,
+    paddingHorizontal: 19,
     marginTop: 16,
-    marginHorizontal: "auto",
   },
   movieList: {
     justifyContent: "space-between",
     flexDirection: "column",
   },
   movieItemContainer: {
-    flexBasis: "30%",
+    flexBasis: "35%",
   },
   gapY: {
     height: 8,
