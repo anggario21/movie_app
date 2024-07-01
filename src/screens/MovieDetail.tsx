@@ -1,5 +1,5 @@
-import { View, Text, FlatList, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
+import { View, Text, FlatList, ImageBackground, StyleSheet, TouchableOpacity, Share } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { API_ACCESS_TOKEN } from "@env";
 import type { Movie, MovieDetailType } from "../types/app";
@@ -114,6 +114,21 @@ const MovieDetail = ({ route }: { route: RouteProp<any> }) => {
     }
   };
 
+  const shareMovieDetail = async () => {
+    const { original_title} = movieDetail;
+    const url = `https://www.netflix.com/id/`;
+
+    try {
+      await Share.share({
+        message: `Hey, let's watch the movie "${original_title}"! Check it out: ${url}`,
+      });
+    } catch (error) {
+      console.error('Error sharing movie details:', error);
+    }
+  };
+
+
+
   useEffect(() => {
     getMovieDetail();
     getMovieRecommendation();
@@ -141,7 +156,13 @@ const MovieDetail = ({ route }: { route: RouteProp<any> }) => {
             </View>
           </LinearGradient>
           <TouchableOpacity
-            style={styles.favoriteIcon}
+            style={[styles.iconButton, { right: 60 }]}
+            onPress={shareMovieDetail}
+          >
+            <FontAwesome name="share-alt" size={24} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.iconButton, { right: 10 }]}
             onPress={() => isFavorite ? removeFavorite(movieDetail.id) : addFavorite(movieDetail)}
           >
             <FontAwesome name={isFavorite ? "heart" : "heart-o"} size={24} color="red" />
@@ -258,7 +279,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
     borderRadius: 50,
     padding: 10,
-  }
+  },
+  iconButton: {
+    position: 'absolute',
+    bottom: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 50,
+    padding: 10,
+  },
 });
 
 export default MovieDetail;
