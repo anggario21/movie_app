@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "movie_app",
-    "slug": "movie_app",
+    "slug": "movie-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,10 +18,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anggario21.movieapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fdaf4ffe-36a5-4f6f-9562-d1fca3206d06"
+      }
+    },
+    "owner": "anggario21"
   }
 }
