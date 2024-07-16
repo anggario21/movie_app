@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   header: {
-    marginLeft: 6,
+    marginLeft: 18,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
   },
   searchMovieResultContainer: {
     flex: 1,
-    paddingHorizontal: 19,
+    marginHorizontal: 20,
+    paddingStart: 20,
     marginTop: 16,
   },
   movieList: {
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   movieItemContainer: {
-    flexBasis: "35%",
+    flexBasis: "30%",
   },
   gapY: {
     height: 8,

@@ -14,7 +14,7 @@ const KeywordSearch = () => {
   };
 
   const getSearchMovie = async (): Promise<void> => {
-    const url = `https://api.themoviedb.org/3/search/movie?query=${Keyword}&include_adult=false&language=en-US&page=1`;
+    const url = `https://api.themoviedb.org/3/search/movie?query=${Keyword}`;
     const options = {
       method: "GET",
       headers: {
